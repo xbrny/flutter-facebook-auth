@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:flutter/foundation.dart'
     show visibleForTesting, defaultTargetPlatform, TargetPlatform;
+import 'package:meta/meta.dart' show required;
 
 import 'facebook_auth_plaftorm.dart';
 import 'facebook_permissions.dart';
@@ -89,7 +90,7 @@ class FacebookAuthPlatformImplementation extends FacebookAuthPlatform {
 
   /// if the user is logged return one instance of AccessToken
   @override
-  Future<AccessToken?> get accessToken async {
+  Future<AccessToken> get accessToken async {
     final result = await channel.invokeMethod("getAccessToken");
     if (result != null) {
       return AccessToken.fromJson(Map<String, dynamic>.from(result));
@@ -100,20 +101,20 @@ class FacebookAuthPlatformImplementation extends FacebookAuthPlatform {
   /// only available on WEB
   @override
   Future<void> webInitialize({
-    required String appId,
-    required bool cookie,
-    required bool xfbml,
-    required String version,
+    @required String appId,
+    @required bool cookie,
+    @required bool xfbml,
+    @required String version,
   }) async {}
 
   /// returns the granted and declined permissions
   @override
-  Future<FacebookPermissions?> get permissions async {
-    final AccessToken? accessToken = await this.accessToken;
+  Future<FacebookPermissions> get permissions async {
+    final AccessToken accessToken = await this.accessToken;
     if (accessToken != null) {
       return FacebookPermissions(
-        granted: accessToken.grantedPermissions!,
-        declined: accessToken.declinedPermissions!,
+        granted: accessToken.grantedPermissions,
+        declined: accessToken.declinedPermissions,
       );
     }
     return null;

@@ -1,4 +1,5 @@
 import 'package:flutter/services.dart';
+import 'package:meta/meta.dart' show required;
 
 import 'access_token.dart';
 
@@ -10,14 +11,14 @@ class LoginResult {
   final LoginStatus status;
 
   /// contain a message when the login request fail
-  final String? message;
+  final String message;
 
   /// contain the access token information for the current session
   /// this will be null when the login request fail
-  final AccessToken? accessToken;
+  final AccessToken accessToken;
 
   LoginResult({
-    required this.status,
+    @required this.status,
     this.message,
     this.accessToken,
   });
@@ -25,7 +26,7 @@ class LoginResult {
   /// returns an instance of LoginResult class from a PlatformException
   static getResultFromException(PlatformException e) {
     // CANCELLED, FAILED, OPERATION_IN_PROGRESS
-    late LoginStatus status;
+    LoginStatus status;
     switch (e.code) {
       case "CANCELLED":
         status = LoginStatus.cancelled;

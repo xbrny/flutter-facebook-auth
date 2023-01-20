@@ -1,3 +1,5 @@
+import 'package:meta/meta.dart' show required;
+
 /// this class is used to saved the granted and declined permissions after login
 class FacebookPermissions {
   /// save the granted permissions by the user
@@ -6,5 +8,5 @@ class FacebookPermissions {
   /// save the declined permissions by the user
   final List<String> declined;
 
-  FacebookPermissions({required this.granted, required this.declined});
+  FacebookPermissions({@required this.granted, @required this.declined});
 }

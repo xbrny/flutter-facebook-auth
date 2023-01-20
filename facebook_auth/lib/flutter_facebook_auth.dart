@@ -1,5 +1,6 @@
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:flutter/material.dart';
+import 'package:meta/meta.dart' show required;
 import 'package:flutter_facebook_auth_platform_interface/flutter_facebook_auth_platform_interface.dart';
 export 'package:flutter_facebook_auth_platform_interface/flutter_facebook_auth_platform_interface.dart'
     show
@@ -26,7 +27,7 @@ class FacebookAuth {
   static FacebookAuth getInstance() => FacebookAuth._();
 
   /// if the user is logged return one instance of AccessToken
-  Future<AccessToken?> get accessToken => _authPlatform.accessToken;
+  Future<AccessToken> get accessToken => _authPlatform.accessToken;
 
   /// Express login logs people in with their Facebook account across devices and platform.
   /// If a person logs into your app on Android and then changes devices,
@@ -83,10 +84,10 @@ class FacebookAuth {
 
   /// call this method (ONLY FOR WEB) to initialize the facebook javascript sdk
   Future<void> webInitialize({
-    required String appId,
-    required bool cookie,
-    required bool xfbml,
-    required String version,
+    @required String appId,
+    @required bool cookie,
+    @required bool xfbml,
+    @required String version,
   }) {
     return _authPlatform.webInitialize(
       appId: appId,
@@ -99,7 +100,7 @@ class FacebookAuth {
   /// returns one instance of FacebookPermission with the granted and declined permissions
   ///
   /// It could be null if you exceed the request limit
-  Future<FacebookPermissions?> get permissions => _authPlatform.permissions;
+  Future<FacebookPermissions> get permissions => _authPlatform.permissions;
 
   /// use this to know if the facebook sdk was initializated on Web
   /// on Android and iOS is always true

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meta/meta.dart' show required;
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
 import 'access_token.dart';
@@ -35,10 +36,10 @@ abstract class FacebookAuthPlatform extends PlatformInterface {
 
   /// initialiaze the facebook javascript sdk
   Future<void> webInitialize({
-    required String appId,
-    required bool cookie,
-    required bool xfbml,
-    required String version,
+    @required String appId,
+    @required bool cookie,
+    @required bool xfbml,
+    @required String version,
   });
 
   /// use this to know if the facebook sdk was initializated on Web
@@ -82,8 +83,8 @@ abstract class FacebookAuthPlatform extends PlatformInterface {
   Future<void> logOut();
 
   /// if the user is logged return one instance of AccessToken
-  Future<AccessToken?> get accessToken;
+  Future<AccessToken> get accessToken;
 
   /// get the permissions for the current access token
-  Future<FacebookPermissions?> get permissions;
+  Future<FacebookPermissions> get permissions;
 }

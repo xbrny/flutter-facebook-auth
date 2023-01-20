@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:html';
 import 'package:flutter/services.dart';
+import 'package:meta/meta.dart' show required;
 import 'package:flutter_facebook_auth_platform_interface/flutter_facebook_auth_platform_interface.dart';
 import 'package:js/js.dart';
 import 'dart:js' as js;
@@ -23,7 +24,7 @@ class FlutterFacebookAuthPlugin extends FacebookAuthPlatform {
   ///
   /// check if a user is logged and return an accessToken data
   @override
-  Future<AccessToken?> get accessToken async {
+  Future<AccessToken> get accessToken async {
     if (!_initialized) return null;
 
     Completer<LoginResult> completer = Completer();
@@ -136,10 +137,10 @@ class FlutterFacebookAuthPlugin extends FacebookAuthPlatform {
   /// calls the FB.init interop
   @override
   Future<void> webInitialize({
-    required String appId,
-    required bool cookie,
-    required bool xfbml,
-    required String version,
+    @required String appId,
+    @required bool cookie,
+    @required bool xfbml,
+    @required String version,
   }) async {
     this._appId = appId;
 
@@ -171,7 +172,7 @@ class FlutterFacebookAuthPlugin extends FacebookAuthPlatform {
       ..defer = true
       ..crossOrigin = 'anonymous';
     assert(document.head != null);
-    document.head!.append(script);
+    document.head?.append(script);
     await script.onLoad.first;
   }
 
@@ -193,9 +194,9 @@ class FlutterFacebookAuthPlugin extends FacebookAuthPlatform {
   ///}
   /// ```
   @override
-  Future<FacebookPermissions?> get permissions async {
+  Future<FacebookPermissions> get permissions async {
     if (!_initialized) return null;
-    Completer<FacebookPermissions?> c = Completer();
+    Completer<FacebookPermissions> c = Completer();
     fb.api(
       "/me/permissions",
       allowInterop(
@@ -251,7 +252,7 @@ class FlutterFacebookAuthPlugin extends FacebookAuthPlatform {
     try {
       final Map<String, dynamic> response = convert(_);
       _checkResponseError(response);
-      final String? status = response['status'];
+      final String status = response['status'];
 
       if (status == null) {
         return LoginResult(status: LoginStatus.failed);

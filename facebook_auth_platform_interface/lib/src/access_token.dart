@@ -1,3 +1,5 @@
+import 'package:meta/meta.dart' show required;
+
 const maxMillisecondsSinceEpoch = 8640000000000000;
 const minMillisecondsSinceEpoch = -8640000000000000;
 
@@ -19,27 +21,27 @@ class AccessToken {
   final String applicationId;
 
   /// the graph Domain name returned by facebook
-  final String? graphDomain;
+  final String graphDomain;
 
   /// list of string with the rejected permission by the user (on Web is null)
-  final List<String>? declinedPermissions;
+  final List<String> declinedPermissions;
 
   /// list of string with the approved permission by the user (on Web is null)
-  final List<String>? grantedPermissions;
+  final List<String> grantedPermissions;
 
   /// is `true` when the token is expired
   final bool isExpired;
 
   AccessToken({
-    required this.declinedPermissions,
-    required this.grantedPermissions,
-    required this.userId,
-    required this.expires,
-    required this.lastRefresh,
-    required this.token,
-    required this.applicationId,
+    @required this.declinedPermissions,
+    @required this.grantedPermissions,
+    @required this.userId,
+    @required this.expires,
+    @required this.lastRefresh,
+    @required this.token,
+    @required this.applicationId,
     this.graphDomain,
-    required this.isExpired,
+    @required this.isExpired,
   });
 
   /// convert the data provided for the platform channel to one instance of AccessToken
