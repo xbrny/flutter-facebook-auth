@@ -20,7 +20,7 @@ dependencies:
   flutter_facebook_auth_platform_interface:
     git:
       url: https://github.com/xbrny/flutter-facebook-auth
-      path: flutter_facebook_auth_platform_interface
+      path: facebook_auth_platform_interface
 
 dev_dependencies:
   flutter_test:
